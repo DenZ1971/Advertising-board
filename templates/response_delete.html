@@ -1,0 +1,14 @@
+{% extends 'default.html' %}
+
+{% block content %}
+{% include 'includes/nav_bar.html' %}
+<hr>
+<hr>
+<h3>удалить отклик</h3>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    <h5>Удаляем "{{ object.title }}"?<h5>
+    <input type="submit" value="Удалить" />
+</form>
+{% endblock content %}

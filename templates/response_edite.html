@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block content %}
+{% include 'includes/nav_bar.html' %}
+<hr>
+<hr>
+<h3>Принять отклик</h3>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ form.media }}
+
+    <input type="submit" value="Сохранить" />
+</form>
+{% endblock content %}

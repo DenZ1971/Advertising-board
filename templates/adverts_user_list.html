@@ -1,0 +1,53 @@
+{% extends 'default.html' %}
+
+
+
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+
+{% include 'includes/nav_bar.html' %}
+<hr>
+
+<hr>
+
+{% if adverts_list %}
+<ul class="list-group list-group-flush">
+  {% for advert in adverts_list %}
+    <li class="list-group-item">
+
+      <small class="fw-bold">{{advert.timeCreation|date:'d M Y'}}</small>
+      <a href={{ advert.get_absolute_url }}><h2>{{advert.title}}</h2></a>
+
+      <small class="text-muted">(автор: {{advert.username}})</small><br>
+      <p>{{advert.text|safe|truncatechars:25}}</p><br>
+      <br>
+
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Вы не разместили ни одного объявления</p>
+{% endif %}
+{% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+{% endblock content %}

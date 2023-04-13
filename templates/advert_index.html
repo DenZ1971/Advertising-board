@@ -1,0 +1,33 @@
+
+{% extends 'default.html' %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+{% include 'includes/nav_bar.html' %}
+<hr>
+<hr>
+<h2>{{ advert.title }}</h2>
+<h5>{{ advert.timeCreation|date:'d M Y' }}</h5>
+<h5>автр объявления: {{ advert.username}}</h5>
+
+{{ advert.text|safe }}
+
+
+{% if perms.ads.change_advert and user == advert.username %}
+<a href="{% url 'advert_edite' advert.id %}">Изменить объявление</a>
+{% endif %}
+
+{% if perms.ads.delete_advert and user == advert.username %}
+<a href="{% url 'advert_delete' advert.id %}">Удалить объявление</a>
+{% endif %}
+
+{% if user != advert.username %}
+<a href="{% url 'response_create' advert.id %}">Оставить отклик</a>
+{% endif %}
+
+{% endblock content %}

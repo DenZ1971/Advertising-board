@@ -1,0 +1,39 @@
+{% extends 'default.html' %}
+
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+{% include 'includes/nav_bar.html' %}
+
+<hr>
+<hr>
+
+<h5>{{ response.timeCreation|date:'d M Y' }}</h5>
+<h5>автор отклика: {{ response.sender}}</h5>
+{% if response.response_status == True %}
+      <small class="text-muted">(статус: Принято)</small><br>
+      {% else %}
+      <small class="text-muted">(статус:  Не Принято)</small><br>
+      {% endif %}
+
+<article>{{ response.text }}</article><br>
+
+
+
+{% if response.response_status is not True %}
+<a href="{% url 'response_edite' response.id %}">Принять отклик</a><br>
+
+
+<a href="{% url 'response_delete' response.id %}">Удалить отклик</a>
+
+{% endif %}
+
+
+
+
+
+{% endblock content %}
